@@ -36,13 +36,15 @@
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^11.0.5",
-    "vaul": "^1.1.2"
+    "vaul": "^1.1.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.15.2",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@types/react-i18next": "^8.1.0",
+    "@types/xlsx": "^0.0.36",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
     "autoprefixer": "^10.4.20",

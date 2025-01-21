@@ -12,6 +12,7 @@ import { FolderOptions } from "../FolderOptions/FolderOptions";
 import { TaskSort } from "../TaskSort/TaskSort";
 import { useTranslation } from "react-i18next";
 import { TranslationsMenu } from "../Translation/TranslationsMenu";
+import { ExcelImport } from "../ImportButton/ExcelImport";
 
 interface HeaderProps {
   isMobile: boolean;
@@ -53,7 +54,7 @@ export default function Header({
       <div className="flex items-center gap-2 flex-wrap">
         <TaskSort />
         <Dropdown {...ExportMenuProps} />
-        {!isMobile && <Button>{t("IMPORT")}</Button>}
+        {!isMobile && <ExcelImport />}
         <NewTaskDialog folders={folders} />
         <TranslationsMenu/>
       </div>

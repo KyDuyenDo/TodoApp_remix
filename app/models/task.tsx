@@ -39,6 +39,12 @@ export const createTask = async (task: Task) => {
   return newTask;
 };
 
+export const createMultipleTasks = async (tasks: Task[]) => {
+  const newTasks: Task[] = tasks;
+  mockTasks.push(...newTasks);
+  return newTasks;
+};
+
 export const filterTasksByStatus = async (status: string) => {
   const tasks: Task[] = mockTasks.filter((task) => task.status === status);
   return tasks;
