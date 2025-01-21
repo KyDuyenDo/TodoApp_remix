@@ -47,9 +47,9 @@ export const FolderOptions = ({ folders }: { folders: Folder[] }) => {
       const success = data.success;
       if (success === false) {
         setIsDeleteFailed(true);
-      } else if (selection.value === "Delete") {
+      } else if (selection.value === "DELETE") {
         navigate("/folders/all/tasks");
-      } else if (selection.value === "Rename") {
+      } else if (selection.value === "RENAME") {
         setFolderProps({ ...foldeProps, name: newFolderName });
       }
       setSelection({key:"", value:""});
@@ -67,12 +67,12 @@ export const FolderOptions = ({ folders }: { folders: Folder[] }) => {
   }, [params]);
 
   useEffect(() => {
-    if (selection.value === "Rename") {
+    if (selection.value === "RENAME") {
       setIsRenameFolderOpen(true);
     } else {
       setIsRenameFolderOpen(false);
     }
-    if (selection.value === "Delete") {
+    if (selection.value === "DELETE") {
       setIsDeleteFolderOpen(true);
     } else {
       setIsDeleteFolderOpen(false);
