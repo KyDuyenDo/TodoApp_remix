@@ -1,4 +1,5 @@
 import {
+  Await,
   ClientLoaderFunctionArgs,
   json,
   Links,
@@ -7,6 +8,7 @@ import {
   redirect,
   Scripts,
   ScrollRestoration,
+  useFetcher,
   useLoaderData,
 } from "@remix-run/react";
 import type {
@@ -15,14 +17,13 @@ import type {
   LoaderFunction,
 } from "@remix-run/node";
 
-import "./i18n";
-
 import "./tailwind.css";
 import { createFolder, getFolders } from "./models/folder";
 import { Folder } from "./contants/types";
-import React from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { SidebarContent } from "./components/Sidebar/SidebarContent";
 import Header from "./components/Header/Header";
+import { mockFolders } from "./contants/mock";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -56,9 +57,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export const loader: LoaderFunction = async ({}) => {
-  const folders = await getFolders();
+  const folders = await new Promise<Folder[]>((r) =>
+    setTimeout(() => r(mockFolders), 3000)
+  );
   return json({ folders });
 };
+
+export async function clientLoader({ serverLoader }: ClientLoaderFunctionArgs) {
+  return {
+    folders: serverLoader<typeof loader>().then((c) => c.folders),
+  };
+}
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -74,46 +83,32 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function Folders() {
-  const { folders } = useLoaderData<typeof loader>();
-  const [isMobile, setIsMobile] = React.useState(false);
-  const [sidebarOpen, setSidebarOpen] = React.useState(false);
+  const loaderData = useLoaderData<typeof loader>();
+  const [folders, setFolders] = useState<Folder[] | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  React.useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+  useEffect(() => {
+    // Simulate fetching the folders from loaderData
+    const fetchfolders = async () => {
+      setLoading(true);
+      const data = await new Promise<Folder[]>(
+        (resolve) => setTimeout(() => resolve(loaderData.folders), 3000) // Simulated delay
+      );
+      setFolders(data);
+      setLoading(false);
     };
-    checkIsMobile();
-    window.addEventListener("resize", checkIsMobile);
-    return () => window.removeEventListener("resize", checkIsMobile);
-  }, []);
+
+    fetchfolders();
+  }, [loaderData]);
   return (
-    <div className="flex min-h-screen min-w-screen">
-      {!isMobile && (
-        <div className="w-64 bg-white border-r min-h-screen p-4">
-          <SidebarContent
-            folders={folders}
-            isMobile={isMobile}
-            setSidebarOpen={setSidebarOpen}
-          />
-        </div>
-      )}
-      <div className="flex-1 p-4 md:p-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <Header
-            isMobile={isMobile}
-            folders={folders}
-            setSidebarOpen={setSidebarOpen}
-            sidebarOpen={sidebarOpen}
-          />
-          <Outlet
-            context={{
-              isMobile,
-              folders,
-              context: "task-list",
-            }}
-          />
-        </div>
-      </div>
+    <div>
+      {loading
+        ? // Render skeleton while loading
+          Array.from(new Array(5)).map((_, i) => (
+            <span key={i}>Loading...</span>
+          ))
+        : // Render actual folders once loaded
+          folders?.map((folder) => <span>{folder.name}</span>)}
     </div>
   );
 }
