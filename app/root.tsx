@@ -1,5 +1,4 @@
 import {
-  ClientLoaderFunctionArgs,
   json,
   Links,
   Meta,
@@ -15,7 +14,6 @@ import type {
   LoaderFunction,
 } from "@remix-run/node";
 
-import "./i18n";
 
 import "./tailwind.css";
 import { createFolder, getFolders } from "./models/folder";
