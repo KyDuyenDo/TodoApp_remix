@@ -9,7 +9,6 @@ export const TranslationsMenu = () => {
   const [language, setLanguage] = React.useState(mainLanguage);
 
   const handleLanguageChange = (key: string, value: string) => {
-    console.log(key);
     if (key) {
       i18n.changeLanguage(key);
     }

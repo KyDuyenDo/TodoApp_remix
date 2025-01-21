@@ -1,18 +1,16 @@
 import { Button } from "~/components/ui/button";
-import {
-  ExportMenuProps,
-  Folder,
-} from "~/contants/types";
+import { Folder } from "~/contants/types";
 import NewTaskDialog from "../NewTaskDialog/NewTaskDialog";
 import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import { SidebarContent } from "../Sidebar/SidebarContent";
 import { Menu } from "~/contants/icons";
-import { Dropdown } from "../Dropdown/Dropdown";
 import { FolderOptions } from "../FolderOptions/FolderOptions";
 import { TaskSort } from "../TaskSort/TaskSort";
-import { useTranslation } from "react-i18next";
 import { TranslationsMenu } from "../Translation/TranslationsMenu";
 import { ExcelImport } from "../ImportButton/ExcelImport";
+import ExportToExcel from "../ExportOption/ExportToExcel";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "@remix-run/react";
 
 interface HeaderProps {
   isMobile: boolean;
@@ -27,7 +25,8 @@ export default function Header({
   setSidebarOpen,
   sidebarOpen,
 }: HeaderProps) {
-  const { t } = useTranslation("main");
+  const [searchParams] = useSearchParams();
+
   return (
     <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
       <div className="flex items-center gap-[13px]">
@@ -53,10 +52,12 @@ export default function Header({
       </div>
       <div className="flex items-center gap-2 flex-wrap">
         <TaskSort />
-        <Dropdown {...ExportMenuProps} />
-        {!isMobile && <ExcelImport />}
-        <NewTaskDialog folders={folders} />
-        <TranslationsMenu/>
+        {!searchParams.get("exportSelection") && <ExportToExcel />}
+        {!isMobile && !searchParams.get("exportSelection") && <ExcelImport />}
+        {!searchParams.get("exportSelection") && (
+          <NewTaskDialog folders={folders} />
+        )}
+        <TranslationsMenu />
       </div>
     </div>
   );

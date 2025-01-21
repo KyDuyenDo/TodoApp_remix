@@ -4,12 +4,14 @@ import * as XLSX from "xlsx";
 import { v4 as uuidv4 } from "uuid";
 import { useFetcher, useParams } from "@remix-run/react";
 import { Task } from "~/contants/types";
+import { useTranslation } from "react-i18next";
 
 export function ExcelImport() {
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
   const fetcher = useFetcher();
   const [fileInputKey, setFileInputKey] = useState(0);
+  const {t} = useTranslation("main");
 
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -96,7 +98,7 @@ export function ExcelImport() {
         onClick={() => document.getElementById("excel-file-input")?.click()}
         disabled={isLoading}
       >
-        {isLoading ? "Importing..." : "Import"}
+        {isLoading ? "Importing..." : t("IMPORT")}
       </Button>
     </div>
   );

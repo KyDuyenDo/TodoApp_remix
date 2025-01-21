@@ -10,8 +10,9 @@ import {
   getTasksByFolderId,
   getTasksFilteredByFolderId,
 } from "~/models/task";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SkeletonTaskList } from "~/components/TaskList/SkeletonTaskList";
+import { use } from "i18next";
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   if (!params.folderId) {
@@ -73,14 +74,19 @@ export default function FolderTasks() {
 
     fetchfolders();
   }, [loaderData]);
+
+  useMemo(() => {
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("export_tasks", JSON.stringify(tasks));
+    }
+  }, [tasks]);
+
   return (
     <div className="flex">
       <div className="flex-grow p-4">
         {loading ? (
-          // Hiển thị skeleton khi loading
           <SkeletonTaskList />
         ) : (
-          // Hiển thị TaskList khi dữ liệu đã tải xong
           tasks && <TaskList tasks={tasks} folders={folders} total={total} />
         )}
       </div>

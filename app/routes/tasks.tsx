@@ -1,5 +1,4 @@
 import { type ActionFunctionArgs, json } from "@remix-run/node";
-
 import {
   createTask,
   deleteTask,
@@ -11,14 +10,14 @@ import { Task } from "~/contants/types";
 
 export async function action({ request }: ActionFunctionArgs) {
   const method = request.method.toUpperCase();
-  const formData = await request.formData();
+  const clonedRequest = request.clone(); // hữu ích trong trường hợp cần xử lý formData trong nhiều phần của cùng một action function
 
   switch (method) {
     case "POST": {
+      const formData = await clonedRequest.formData();
       const tasksJson = formData.get("tasks");
 
       if (tasksJson && typeof tasksJson === "string") {
-        // Handle array of tasks
         try {
           const tasksArray = JSON.parse(tasksJson) as Task[];
           const newTasks = await createMultipleTasks(
@@ -33,7 +32,6 @@ export async function action({ request }: ActionFunctionArgs) {
           );
         }
       } else {
-        // Handle single task
         const task = Object.fromEntries(formData) as unknown as Task;
         try {
           const newTask = await createTask({ ...task, id: uuidv4() });
@@ -45,19 +43,22 @@ export async function action({ request }: ActionFunctionArgs) {
       }
     }
     case "DELETE": {
-      const formData = await request.formData();
+      const formData = await clonedRequest.formData();
       const id = formData.get("id") as string;
-      const success = await deleteTask(id);
-      if (success !== false) {
-        return json({ success: true, actionType: "delete" });
-      } else {
-        return json({ success: false, actionType: "delete" }, { status: 400 });
+      try {
+        const success = await deleteTask(id);
+        return json(
+          { success: success !== false, actionType: "delete" },
+          { status: success !== false ? 200 : 400 }
+        );
+      } catch (error) {
+        console.error("Error deleting task:", error);
+        return json({ error: "Failed to delete task" }, { status: 500 });
       }
     }
     case "PUT": {
-      const task = Object.fromEntries(
-        await request.formData()
-      ) as unknown as Task;
+      const formData = await clonedRequest.formData();
+      const task = Object.fromEntries(formData) as unknown as Task;
       try {
         const taskUpdated = await updateTask(task);
         return json({ taskUpdated, actionType: "update" });
