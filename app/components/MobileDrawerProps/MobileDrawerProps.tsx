@@ -23,7 +23,7 @@ export default function MobileDrawer({
         <Drawer
           open={openSheet}
           onOpenChange={() => {
-            naviagte(`/folders/${params.folderId}`);
+            naviagte(`/folders/${params.folderId}/tasks`);
           }}
         >
           <DrawerContent>
