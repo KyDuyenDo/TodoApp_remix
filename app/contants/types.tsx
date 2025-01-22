@@ -1,5 +1,4 @@
 import { DownIcon, ExportIcon, FilterIcon, globalIcon } from "./icons";
-import { t } from "i18next";
 
 export interface Folder {
   id: string;

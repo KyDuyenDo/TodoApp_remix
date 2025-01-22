@@ -11,8 +11,8 @@ import {
   useSearchParams,
 } from "@remix-run/react";
 import { useTranslation } from "react-i18next";
-import { createMap } from "../utils/other.util";
-import { exportUtil } from "../utils/Export.util";
+import { createMap } from "../../utils/other.util";
+import { exportUtil } from "../../utils/Export.util";
 
 export default function TaskList({
   tasks,

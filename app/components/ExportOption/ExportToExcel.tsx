@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { exportUtil } from "../utils/Export.util";
+import { exportUtil } from "../../utils/Export.util";
 import { useSearchParams } from "@remix-run/react";
 
 const ExportToExcel = () => {

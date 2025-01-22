@@ -9,7 +9,6 @@ import { TaskSort } from "../TaskSort/TaskSort";
 import { TranslationsMenu } from "../Translation/TranslationsMenu";
 import { ExcelImport } from "../ImportButton/ExcelImport";
 import ExportToExcel from "../ExportOption/ExportToExcel";
-import { useEffect, useState } from "react";
 import { useSearchParams } from "@remix-run/react";
 
 interface HeaderProps {

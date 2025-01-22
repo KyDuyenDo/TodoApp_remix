@@ -12,7 +12,6 @@ import {
 } from "~/models/task";
 import { useEffect, useMemo, useState } from "react";
 import { SkeletonTaskList } from "~/components/TaskList/SkeletonTaskList";
-import { use } from "i18next";
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   if (!params.folderId) {
