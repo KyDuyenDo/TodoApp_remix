@@ -69,7 +69,7 @@ export default function TaskList({
   const handleButtonClick = (taskId: string) => {
     const folderId = params.folderId;
     const newPath = `/folders/${folderId}/tasks/${taskId}?${searchParams.toString()}`;
-    navigate(newPath);
+    navigate(newPath, { replace: true });
   };
 
   const handleChange = (taskId: string) => {

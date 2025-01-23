@@ -1,27 +1,25 @@
-import { useLoaderData, useOutletContext, useParams } from "@remix-run/react";
-import type { LoaderFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { useMatches, useOutletContext, useParams } from "@remix-run/react";
 
 import TaskDetailPanel from "~/components/TaskDetailPanel/TaskDetailPanel";
 import MobileDrawer from "~/components/MobileDrawerProps/MobileDrawerProps";
 import { Folder, Task } from "~/contants/types";
 import React, { useEffect } from "react";
-import { getTaskById } from "~/models/task";
-
-export const loader: LoaderFunction = async ({ params }) => {
-  if (!params.taskId) {
-    throw new Response("Task ID is required", { status: 400 });
-  }
-  const task = await getTaskById(params.taskId);
-  if (!task) {
-    throw new Response("Task not found", { status: 404 });
-  }
-  return json({ task });
-};
 
 export default function TaskDetail() {
-  const { task } = useLoaderData<{ task: Task }>();
   const params = useParams();
+  const matches = useMatches();
+  // get the parent data from the parent route
+  const parentData = matches.find(
+    (match) => match.id === "routes/folders.$folderId.tasks"
+  )?.data as { tasks: Task[] } | undefined;
+  
+  // find the task by id
+  const task = parentData?.tasks?.find((t: Task) => t.id === params.taskId);
+
+  if (!task) {
+    return <div>Task not found</div>;
+  }
+
   const [openSheet, setOpenSheet] = React.useState(false);
   const { isMobile, folders, context } = useOutletContext<{
     isMobile: boolean;
@@ -29,7 +27,7 @@ export default function TaskDetail() {
     folders: Folder[];
   }>();
   if (context !== "task-detail") return null;
-  
+
   useEffect(() => {
     if (params.taskId) {
       setOpenSheet(true);

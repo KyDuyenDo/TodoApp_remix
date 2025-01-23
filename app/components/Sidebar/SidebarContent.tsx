@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { Folder } from "~/contants/types";
 import NewFolderDialog from "../NewFolderDialog/NewFolderDialog";
 import { Plus } from "~/contants/icons";
-import { useNavigate } from "@remix-run/react";
+import { useNavigate, useParams } from "@remix-run/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -18,6 +18,7 @@ export const SidebarContent = ({
   setSidebarOpen: (open: boolean) => void;
 }) => {
   const navigate = useNavigate();
+  const params = useParams();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { t } = useTranslation("main");
   return (
@@ -46,6 +47,7 @@ export const SidebarContent = ({
             className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
             onClick={() => {
               isMobile && setSidebarOpen(false);
+              if(params.folderId === folder.id) return;
               navigate(`/folders/${folder.id}/tasks`);
             }}
           >

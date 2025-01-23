@@ -10,7 +10,8 @@ import { Task } from "~/contants/types";
 
 export async function action({ request }: ActionFunctionArgs) {
   const method = request.method.toUpperCase();
-  const clonedRequest = request.clone(); // hữu ích trong trường hợp cần xử lý formData trong nhiều phần của cùng một action function
+  // clone the request to read the body multiple times
+  const clonedRequest = request.clone();
 
   switch (method) {
     case "POST": {

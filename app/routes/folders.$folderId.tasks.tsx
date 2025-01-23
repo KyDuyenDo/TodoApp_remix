@@ -1,4 +1,9 @@
-import { Outlet, useLoaderData, useOutletContext } from "@remix-run/react";
+import {
+  Outlet,
+  ShouldRevalidateFunction,
+  useLoaderData,
+  useOutletContext,
+} from "@remix-run/react";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 
@@ -13,6 +18,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { SkeletonTaskList } from "~/components/TaskList/SkeletonTaskList";
 
+// loader function is used to fetch data for the page
 export const loader: LoaderFunction = async ({ params, request }) => {
   if (!params.folderId) {
     throw new Error("folderId is required");
@@ -44,6 +50,15 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     searchParams.toString()
   );
   return json({ tasks, total });
+};
+// shouldRevalidate function is used to determine if the page should be revalidated
+export const shouldRevalidate: ShouldRevalidateFunction = ({
+  currentParams,
+  nextParams,
+}) => {
+  if(!currentParams.taskId && nextParams.taskId) return false;
+  if(currentParams.taskId && !nextParams.taskId) return false;
+  return true;
 };
 
 export default function FolderTasks() {

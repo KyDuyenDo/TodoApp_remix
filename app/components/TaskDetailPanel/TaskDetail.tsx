@@ -114,7 +114,9 @@ const TaskDetail: React.FC<TaskDetailPanelProps> = ({ folders, task }) => {
           </div>
 
           <div>
-            <label className="text-sm font-medium mb-1 block">{t('FOLDER')}</label>
+            <label className="text-sm font-medium mb-1 block">
+              {t("FOLDER")}
+            </label>
             <Select
               value={updatetask.folderId}
               name="folderId"
@@ -139,7 +141,9 @@ const TaskDetail: React.FC<TaskDetailPanelProps> = ({ folders, task }) => {
           </div>
 
           <div>
-            <label className="text-sm font-medium mb-1 block">{t('DUE_DATE')}</label>
+            <label className="text-sm font-medium mb-1 block">
+              {t("DUE_DATE")}
+            </label>
             <Input
               value={formatDateTimeLocal(updatetask.time)}
               type="datetime-local"
@@ -149,7 +153,9 @@ const TaskDetail: React.FC<TaskDetailPanelProps> = ({ folders, task }) => {
           </div>
 
           <div>
-            <label className="text-sm font-medium mb-1 block">{t('STATUS')}</label>
+            <label className="text-sm font-medium mb-1 block">
+              {t("STATUS")}
+            </label>
             <Select
               value={updatetask.status}
               name="status"
