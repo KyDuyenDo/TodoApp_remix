@@ -95,7 +95,7 @@ export default function Folders() {
         </div>
       )}
       <div className="flex-1 p-4 md:p-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
+        <div>
           <Header
             isMobile={isMobile}
             folders={folders}
