@@ -15,9 +15,8 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { Folder, Task } from "~/contants/types";
-import { useFetcher } from "@remix-run/react";
+import { useFetcher, useNavigate } from "@remix-run/react";
 import React, { useState } from "react";
-import { use } from "i18next";
 import { useTranslation } from "react-i18next";
 
 interface NewTaskDialogProps {
@@ -44,6 +43,7 @@ export enum TaskStatus {
 
 export default function NewTaskDialog({ folders }: NewTaskDialogProps) {
   const fetcher = useFetcher();
+  const navigate = useNavigate();
   const [task, setTask] = useState<Task>(initialTask);
   const [isChange, setIsChange] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -67,12 +67,13 @@ export default function NewTaskDialog({ folders }: NewTaskDialogProps) {
 
     formData.append("note", task.note);
 
-    await fetcher.submit(formData, {
+    fetcher.submit(formData, {
       method: "post",
       action: "/tasks",
     });
     setTask(initialTask);
     setIsOpen(false);
+    navigate(`/folders/${task.folderId}/tasks`);
   };
 
   React.useEffect(() => {

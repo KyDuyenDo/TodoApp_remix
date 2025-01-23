@@ -14,7 +14,6 @@ import type {
   LoaderFunction,
 } from "@remix-run/node";
 
-
 import "./tailwind.css";
 import { createFolder, getFolders } from "./models/folder";
 import { Folder } from "./contants/types";
