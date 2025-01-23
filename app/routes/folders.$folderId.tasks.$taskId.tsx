@@ -12,13 +12,9 @@ export default function TaskDetail() {
   const parentData = matches.find(
     (match) => match.id === "routes/folders.$folderId.tasks"
   )?.data as { tasks: Task[] } | undefined;
-  
+
   // find the task by id
   const task = parentData?.tasks?.find((t: Task) => t.id === params.taskId);
-
-  if (!task) {
-    return <div>Task not found</div>;
-  }
 
   const [openSheet, setOpenSheet] = React.useState(false);
   const { isMobile, folders, context } = useOutletContext<{
@@ -26,8 +22,6 @@ export default function TaskDetail() {
     context: string;
     folders: Folder[];
   }>();
-  if (context !== "task-detail") return null;
-
   useEffect(() => {
     if (params.taskId) {
       setOpenSheet(true);
@@ -35,6 +29,10 @@ export default function TaskDetail() {
       setOpenSheet(false);
     }
   }, [params]);
+
+  if (!task) {
+    return null;
+  }
 
   if (isMobile) {
     return (

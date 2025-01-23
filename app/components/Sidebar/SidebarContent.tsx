@@ -40,7 +40,7 @@ export const SidebarContent = ({
         </Dialog>
       </div>
 
-      <div className="space-y-2 max-h-[500px] overflow-y-auto">
+      <div className="space-y-2 overflow-y-auto">
         {folders.map((folder) => (
           <div
             key={folder.id}

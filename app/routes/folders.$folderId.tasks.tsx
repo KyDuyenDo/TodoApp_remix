@@ -56,8 +56,13 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
   currentParams,
   nextParams,
 }) => {
-  if(!currentParams.taskId && nextParams.taskId) return false;
-  if(currentParams.taskId && !nextParams.taskId) return false;
+  if (!currentParams.taskId && nextParams.taskId) return false;
+  if (
+    currentParams.taskId &&
+    !nextParams.taskId &&
+    currentParams.folderId === nextParams.folderId
+  )
+    return false;
   return true;
 };
 
@@ -97,7 +102,7 @@ export default function FolderTasks() {
 
   return (
     <div className="flex">
-      <div className="flex-grow p-4">
+      <div className="flex-grow p-2 sm:p-4">
         {loading ? (
           <SkeletonTaskList />
         ) : (
