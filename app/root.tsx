@@ -89,7 +89,11 @@ export default function Folders() {
     return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
   return (
-    <div className="flex min-h-screen min-w-screen bg-[#E9EFF6] sm:pt-4 sm:pr-4">
+    <div
+      className={`flex min-h-screen min-w-screen bg-[#E9EFF6] ${
+        !isMobile && "pt-4 pr-4"
+      } `}
+    >
       {!isMobile && (
         <div className="w-64 min-h-screen p-4">
           <SidebarContent
@@ -99,9 +103,11 @@ export default function Folders() {
           />
         </div>
       )}
-      <div className="flex-1 bg-[#F9FAFB] sm:rounded-t-2xl">
+      <div className={`flex-1 bg-[#F9FAFB] ${!isMobile && "rounded-t-2xl"}`}>
         <div className="mx-auto">
-          <div className="p-2 sm:p-4 bg-white sm:rounded-t-2xl">
+          <div
+            className={`p-2 sm:p-4 bg-white ${!isMobile && "rounded-t-2xl"}`}
+          >
             <Header
               isMobile={isMobile}
               folders={folders}
