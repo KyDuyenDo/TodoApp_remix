@@ -21,7 +21,7 @@ const ExportToExcel = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="px-[15px]">{t("EXPORT")}</Button>
+        <Button className="px-[15px] bg-[#1B4DFF] hover:bg-[#0F3CD9]">{t("EXPORT")}</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onClick={() => setIsExportSelectedItems()}>

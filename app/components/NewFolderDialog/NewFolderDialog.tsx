@@ -112,7 +112,7 @@ export default function NewFolderDialog({
       </div>
       <Button
         type="submit"
-        className="w-full"
+        className="w-full bg-[#1B4DFF] hover:bg-[#0F3CD9]"
         disabled={!folderName.trim() || fetcher.state === "submitting"}
       >
         {fetcher.state === "submitting" ? "Creating..." : "Create"}

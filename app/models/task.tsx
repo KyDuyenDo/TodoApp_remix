@@ -9,7 +9,7 @@ export const getTaskById = async (taskId: string) => {
 export const getAllTasks = async (search?: string) => {
   const params = new URLSearchParams(search);
   const page = params.get("page") ? Number.parseInt(params.get("page")!) : 1;
-  const paginatedResult = paginatedTasks(mockTasks, page, 5);
+  const paginatedResult = paginatedTasks(mockTasks, page, 10);
   return { tasks: paginatedResult, total: mockTasks.length };
 };
 
@@ -63,7 +63,7 @@ export const getTasksByFolderId = async (folderId: string, search?: string) => {
   );
   const params = new URLSearchParams(search);
   const page = params.get("page") ? Number.parseInt(params.get("page")!) : 1;
-  const paginatedResult = paginatedTasks(tasksData, page, 5);
+  const paginatedResult = paginatedTasks(tasksData, page, 10);
   return { tasks: paginatedResult, total: tasksData.length };
 };
 
@@ -97,7 +97,7 @@ export const filterAndSortTasks = async (tasks: Task[], search?: string) => {
     );
   }
 
-  const paginatedResult = paginatedTasks(filteredTasks, page, 5);
+  const paginatedResult = paginatedTasks(filteredTasks, page, 10);
 
   return {
     tasks: paginatedResult,

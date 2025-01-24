@@ -13,7 +13,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { createMap } from "../../utils/other.util";
 import { exportUtil } from "../../utils/Export.util";
-
+import { TaskSort } from "../TaskSort/TaskSort";
 export default function TaskList({
   tasks,
   folders,
@@ -53,7 +53,7 @@ export default function TaskList({
     return page ? Number.parseInt(page) : 1;
   }, [searchParams]);
 
-  const tasksPerPage = 5;
+  const tasksPerPage = 10;
   const totalPages = useMemo(() => Math.ceil(total / tasksPerPage), [total]);
 
   const isPreviousDisabled = currentPage === 1;
@@ -117,116 +117,125 @@ export default function TaskList({
 
   return (
     <>
-      <div className="space-y-2">
-        {tasks.map((task) => (
-          <div
-            key={task.id}
-            className="flex items-center gap-4 p-4 bg-white rounded-lg hover:shadow"
-          >
-            {isExportSelectedItems ? (
-              <input
-                type="checkbox"
-                className="mt-1 w-5 h-5 cursor-pointer"
-                checked={checkMap.get(task.id)}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  let updatedTasks;
-                  if (e.target.checked) {
-                    updatedTasks = [...selectedTask, task];
-                    checkMap.set(task.id, true);
-                  } else {
-                    updatedTasks = selectedTask.filter((t) => t !== task);
-                    checkMap.set(task.id, false);
-                  }
-                  setSelectedTask(updatedTasks);
-                  window.localStorage.setItem(
-                    "export_selected_tasks",
-                    JSON.stringify(updatedTasks)
-                  );
-                }}
-              />
-            ) : (
-              <input
-                type="checkbox"
-                className="mt-1 w-5 h-5 cursor-pointer"
-                disabled={task.status === "done"}
-                checked={task.status === "done"}
-                onChange={() => handleChange(task.id)}
-              />
-            )}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-4">
-                <h3 className={`text-base font-medium truncate`}>
-                  {task.title}
-                </h3>
-              </div>
-
-              <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground flex-wrap">
-                <div className="flex items-center gap-[3px]">
-                  {CalendarIcon}
-                  <span>{format(task.time, "MM/dd/yyyy HH:mm")}</span>
-                </div>
-                <div className="flex items-center gap-[3px]">
-                  {Update}
-                  <span>{format(task.updatedAt, "MM/dd/yyyy HH:mm")}</span>
-                </div>
-                <div className="flex items-center gap-[3px]">
-                  {FolderIcon}
-                  <span>{folderMap[task.folderId] || "Unknown Folder"}</span>
-                </div>
-
-                <Badge variant="secondary" className="px-2 py-0.5 font-normal">
-                  {task.status}
-                </Badge>
-              </div>
-            </div>
-            {!isExportSelectedItems && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => handleButtonClick(task.id)}
-              >
-                {RightArrow}
-              </Button>
-            )}
-          </div>
-        ))}
+      <div className="p-2 sm:px-5 sm:py-3 bg-white border-t border-b">
+        <TaskSort />
       </div>
-      {total > 0 && (
-        <div className="flex items-center justify-between mt-6 flex-wrap gap-4">
-          <div className="text-sm text-gray-500">{displayedTaskRange}</div>
-          {isExportSelectedItems && (
-            <div className="flex items-center gap-4">
-              <Button variant="outline" onClick={() => handleCancelExport()}>
-                cancel
+      <div className="p-2 pt-0 sm:p-5">
+        <div className="space-y-2">
+          {tasks.map((task) => (
+            <div
+              key={task.id}
+              className="flex items-center gap-4 p-4 bg-white rounded-lg hover:shadow"
+            >
+              {isExportSelectedItems ? (
+                <input
+                  type="checkbox"
+                  className="mt-1 w-5 h-5 cursor-pointer"
+                  checked={checkMap.get(task.id)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    let updatedTasks;
+                    if (e.target.checked) {
+                      updatedTasks = [...selectedTask, task];
+                      checkMap.set(task.id, true);
+                    } else {
+                      updatedTasks = selectedTask.filter((t) => t !== task);
+                      checkMap.set(task.id, false);
+                    }
+                    setSelectedTask(updatedTasks);
+                    window.localStorage.setItem(
+                      "export_selected_tasks",
+                      JSON.stringify(updatedTasks)
+                    );
+                  }}
+                />
+              ) : (
+                <input
+                  type="checkbox"
+                  className="mt-1 w-5 h-5 cursor-pointer"
+                  disabled={task.status === "done"}
+                  checked={task.status === "done"}
+                  onChange={() => handleChange(task.id)}
+                />
+              )}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-4">
+                  <h3 className={`text-base font-medium truncate`}>
+                    {task.title}
+                  </h3>
+                </div>
+
+                <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground flex-wrap">
+                  <div className="flex items-center gap-[3px]">
+                    {CalendarIcon}
+                    <span>{format(task.time, "MM/dd/yyyy HH:mm")}</span>
+                  </div>
+                  <div className="flex items-center gap-[3px]">
+                    {Update}
+                    <span>{format(task.updatedAt, "MM/dd/yyyy HH:mm")}</span>
+                  </div>
+                  <div className="flex items-center gap-[3px]">
+                    {FolderIcon}
+                    <span>{folderMap[task.folderId] || "Unknown Folder"}</span>
+                  </div>
+
+                  <Badge
+                    variant="secondary"
+                    className="px-2 py-0.5 font-normal"
+                  >
+                    {task.status}
+                  </Badge>
+                </div>
+              </div>
+              {!isExportSelectedItems && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => handleButtonClick(task.id)}
+                >
+                  {RightArrow}
+                </Button>
+              )}
+            </div>
+          ))}
+        </div>
+        {total > 0 && (
+          <div className="flex items-center justify-between mt-6 flex-wrap gap-4">
+            <div className="text-sm text-gray-500">{displayedTaskRange}</div>
+            {isExportSelectedItems && (
+              <div className="flex items-center gap-4">
+                <Button variant="outline" onClick={() => handleCancelExport()}>
+                  cancel
+                </Button>
+                <Button
+                  className="bg-[#1B4DFF] hover:bg-[#0F3CD9]"
+                  onClick={() => {
+                    exportUtil("export_selected_tasks");
+                    handleCancelExport();
+                  }}
+                >
+                  {t("EXPORT")}
+                </Button>
+              </div>
+            )}
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                onClick={handleClickPrevious}
+                disabled={isPreviousDisabled}
+              >
+                {t("PREVIOUS")}
               </Button>
               <Button
-                onClick={() => {
-                  exportUtil("export_selected_tasks");
-                  handleCancelExport();
-                }}
+                variant="outline"
+                onClick={handleClickNext}
+                disabled={isNextDisabled}
               >
-                {t("EXPORT")}
+                {t("NEXT")}
               </Button>
             </div>
-          )}
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              onClick={handleClickPrevious}
-              disabled={isPreviousDisabled}
-            >
-              {t("PREVIOUS")}
-            </Button>
-            <Button
-              variant="outline"
-              onClick={handleClickNext}
-              disabled={isNextDisabled}
-            >
-              {t("NEXT")}
-            </Button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 }

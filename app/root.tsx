@@ -32,6 +32,10 @@ export const links: LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
+  {
+    rel: "stylesheet",
+    href: "",
+  },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -84,9 +88,9 @@ export default function Folders() {
     return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
   return (
-    <div className="flex min-h-screen min-w-screen">
+    <div className="flex min-h-screen min-w-screen bg-[#E9EFF6] sm:pt-4 sm:pr-4">
       {!isMobile && (
-        <div className="w-64 bg-white border-r min-h-screen p-4">
+        <div className="w-64 min-h-screen p-4">
           <SidebarContent
             folders={folders}
             isMobile={isMobile}
@@ -94,21 +98,25 @@ export default function Folders() {
           />
         </div>
       )}
-      <div className="flex-1 p-2 sm:p-4 md:p-6 bg-gray-50">
+      <div className="flex-1 bg-[#F9FAFB] sm:rounded-t-2xl">
         <div className="mx-auto">
-          <Header
-            isMobile={isMobile}
-            folders={folders}
-            setSidebarOpen={setSidebarOpen}
-            sidebarOpen={sidebarOpen}
-          />
-          <Outlet
-            context={{
-              isMobile,
-              folders,
-              context: "task-list",
-            }}
-          />
+          <div className="p-2 sm:p-4 bg-white sm:rounded-t-2xl">
+            <Header
+              isMobile={isMobile}
+              folders={folders}
+              setSidebarOpen={setSidebarOpen}
+              sidebarOpen={sidebarOpen}
+            />
+          </div>
+          <div className="">
+            <Outlet
+              context={{
+                isMobile,
+                folders,
+                context: "task-list",
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>

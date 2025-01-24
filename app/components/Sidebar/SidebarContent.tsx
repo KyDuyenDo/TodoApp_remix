@@ -7,6 +7,7 @@ import { Plus } from "~/contants/icons";
 import { useNavigate, useParams } from "@remix-run/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import "./SidebarContent.css";
 
 export const SidebarContent = ({
   folders,
@@ -22,8 +23,8 @@ export const SidebarContent = ({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { t } = useTranslation("main");
   return (
-    <>
-      <div className="flex items-center justify-between mb-6">
+    <div className="sticky top-0">
+      <div className="flex items-center justify-between mb-5">
         <h1 className="text-xl font-bold">{t("FOLDERS")}</h1>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
@@ -40,14 +41,16 @@ export const SidebarContent = ({
         </Dialog>
       </div>
 
-      <div className="space-y-2 overflow-y-auto max-h-[calc(100vh-100px)]">
+      <div className="scrollbar-hidden space-y-2 overflow-y-auto max-h-[calc(100vh-100px)]">
         {folders.map((folder) => (
           <div
             key={folder.id}
-            className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
+            className={`flex items-center gap-3 p-2 rounded-lg ${
+              params.folderId === folder.id ? "bg-white" : ""
+            } hover:bg-white cursor-pointer`}
             onClick={() => {
               isMobile && setSidebarOpen(false);
-              if(params.folderId === folder.id) return;
+              if (params.folderId === folder.id) return;
               navigate(`/folders/${folder.id}/tasks`);
             }}
           >
@@ -61,6 +64,6 @@ export const SidebarContent = ({
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };

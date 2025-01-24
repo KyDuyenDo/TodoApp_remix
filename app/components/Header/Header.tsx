@@ -27,7 +27,7 @@ export default function Header({
   const [searchParams] = useSearchParams();
 
   return (
-    <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
+    <div className="flex items-center justify-between flex-wrap gap-4">
       <div className="flex items-center gap-[13px]">
         {isMobile && (
           <Drawer open={sidebarOpen} onOpenChange={setSidebarOpen}>
@@ -50,7 +50,6 @@ export default function Header({
         <FolderOptions folders={folders} />
       </div>
       <div className="flex items-center gap-2 flex-wrap">
-        <TaskSort />
         <div className="flex items-center gap-2 flex-wrap">
           {!searchParams.get("exportSelection") && <ExportToExcel />}
           {!isMobile && !searchParams.get("exportSelection") && <ExcelImport />}

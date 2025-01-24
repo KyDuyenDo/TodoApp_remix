@@ -194,7 +194,7 @@ const TaskDetail: React.FC<TaskDetailPanelProps> = ({ folders, task }) => {
           >
             {t("DELETE_TASK")}
           </Button>
-          <Button disabled={!isChange || fetcher.state === "submitting"}>
+          <Button className="bg-[#1B4DFF] hover:bg-[#0F3CD9]" disabled={!isChange || fetcher.state === "submitting"}>
             {fetcher.state === "submitting" ? "Updating..." : t("SAVE_CHANGE")}
           </Button>
         </div>

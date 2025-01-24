@@ -97,6 +97,7 @@ export function ExcelImport() {
       <Button
         onClick={() => document.getElementById("excel-file-input")?.click()}
         disabled={isLoading}
+        className="bg-[#1B4DFF] hover:bg-[#0F3CD9]"
       >
         {isLoading ? "Importing..." : t("IMPORT")}
       </Button>

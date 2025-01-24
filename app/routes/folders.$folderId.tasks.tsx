@@ -102,7 +102,7 @@ export default function FolderTasks() {
 
   return (
     <div className="flex">
-      <div className="flex-grow p-2 sm:p-4">
+      <div className="flex-grow">
         {loading ? (
           <SkeletonTaskList />
         ) : (

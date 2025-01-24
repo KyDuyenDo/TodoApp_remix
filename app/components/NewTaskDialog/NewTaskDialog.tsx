@@ -92,7 +92,7 @@ export default function NewTaskDialog({ folders }: NewTaskDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
       <DialogTrigger asChild>
-        <Button>{t("NEW_TASK")}</Button>
+        <Button className="bg-[#1B4DFF] hover:bg-[#0F3CD9]">{t("NEW_TASK")}</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
