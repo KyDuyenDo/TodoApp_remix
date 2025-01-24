@@ -20,6 +20,7 @@ import { Folder } from "./contants/types";
 import React from "react";
 import { SidebarContent } from "./components/Sidebar/SidebarContent";
 import Header from "./components/Header/Header";
+import { TaskSort } from "./components/TaskSort/TaskSort";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -108,15 +109,17 @@ export default function Folders() {
               sidebarOpen={sidebarOpen}
             />
           </div>
-          <div className="">
-            <Outlet
-              context={{
-                isMobile,
-                folders,
-                context: "task-list",
-              }}
-            />
+
+          <div className="p-2 sm:px-5 sm:py-3 bg-white border-t border-b">
+            <TaskSort />
           </div>
+          <Outlet
+            context={{
+              isMobile,
+              folders,
+              context: "task-list",
+            }}
+          />
         </div>
       </div>
     </div>

@@ -13,7 +13,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { createMap } from "../../utils/other.util";
 import { exportUtil } from "../../utils/Export.util";
-import { TaskSort } from "../TaskSort/TaskSort";
 export default function TaskList({
   tasks,
   folders,
@@ -117,9 +116,6 @@ export default function TaskList({
 
   return (
     <>
-      <div className="p-2 sm:px-5 sm:py-3 bg-white border-t border-b">
-        <TaskSort />
-      </div>
       <div className="p-2 pt-0 sm:p-5">
         <div className="space-y-2">
           {tasks.map((task) => (
