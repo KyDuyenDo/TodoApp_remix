@@ -10,9 +10,10 @@ import { v4 as uuidv4 } from "uuid";
 
 export async function action({ request }: ActionFunctionArgs) {
   const method = request.method.toUpperCase();
-  const formData = await request.formData();
+  const clonedRequest = request.clone();
   switch (method) {
     case "GET": {
+      const formData = await clonedRequest.formData();
       const id = formData.get("id");
       if (typeof id !== "string") {
         return json({ error: "Invalid folder ID" }, { status: 400 });
@@ -22,6 +23,7 @@ export async function action({ request }: ActionFunctionArgs) {
       else json({ error: "Folder is not found" }, { status: 400 });
     }
     case "POST": {
+      const formData = await clonedRequest.formData();
       const name = formData.get("name");
       const emoji = formData.get("emoji");
 
@@ -46,6 +48,7 @@ export async function action({ request }: ActionFunctionArgs) {
     }
 
     case "DELETE": {
+      const formData = await clonedRequest.formData();
       const id = formData.get("id") as string;
 
       if (!id) {
