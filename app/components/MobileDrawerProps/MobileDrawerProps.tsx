@@ -18,7 +18,7 @@ export default function MobileDrawer({
   const naviagte = useNavigate();
   const params = useParams();
   return (
-    <>
+    <div className="flex items-center gap-[13px]">
       {openSheet && (
         <Drawer
           open={openSheet}
@@ -33,6 +33,6 @@ export default function MobileDrawer({
           </DrawerContent>
         </Drawer>
       )}
-    </>
+    </div>
   );
 }

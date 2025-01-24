@@ -161,7 +161,7 @@ export default function TaskList({
                 </h3>
               </div>
 
-              <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground">
+              <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground flex-wrap">
                 <div className="flex items-center gap-[3px]">
                   {CalendarIcon}
                   <span>{format(task.time, "MM/dd/yyyy HH:mm")}</span>

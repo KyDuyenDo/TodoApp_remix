@@ -51,12 +51,14 @@ export default function Header({
       </div>
       <div className="flex items-center gap-2 flex-wrap">
         <TaskSort />
-        {!searchParams.get("exportSelection") && <ExportToExcel />}
-        {!isMobile && !searchParams.get("exportSelection") && <ExcelImport />}
-        {!searchParams.get("exportSelection") && (
-          <NewTaskDialog folders={folders} />
-        )}
-        <TranslationsMenu />
+        <div className="flex items-center gap-2 flex-wrap">
+          {!searchParams.get("exportSelection") && <ExportToExcel />}
+          {!isMobile && !searchParams.get("exportSelection") && <ExcelImport />}
+          {!searchParams.get("exportSelection") && (
+            <NewTaskDialog folders={folders} />
+          )}
+          <TranslationsMenu />
+        </div>
       </div>
     </div>
   );
