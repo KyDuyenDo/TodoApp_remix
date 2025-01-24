@@ -52,7 +52,7 @@ export default function TaskList({
     return page ? Number.parseInt(page) : 1;
   }, [searchParams]);
 
-  const tasksPerPage = 10;
+  const tasksPerPage = 5;
   const totalPages = useMemo(() => Math.ceil(total / tasksPerPage), [total]);
 
   const isPreviousDisabled = currentPage === 1;
