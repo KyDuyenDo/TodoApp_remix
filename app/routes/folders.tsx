@@ -1,5 +1,6 @@
+/* eslint-disable import/no-unresolved */
 import { ActionFunctionArgs, json } from "@remix-run/node";
-import { Folder } from "~/contants/types";
+import { Folder } from "~/constants/types";
 import {
   createFolder,
   deleteFolder,
@@ -20,7 +21,7 @@ export async function action({ request }: ActionFunctionArgs) {
       }
       const folder = await getFolderByFolderId(id);
       if (folder) return json({ folder });
-      else json({ error: "Folder is not found" }, { status: 400 });
+      else return json({ error: "Folder is not found" }, { status: 400 });
     }
     case "POST": {
       const formData = await clonedRequest.formData();

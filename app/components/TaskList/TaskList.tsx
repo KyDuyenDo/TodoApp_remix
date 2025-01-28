@@ -1,9 +1,10 @@
+/* eslint-disable import/no-unresolved */
 import { useEffect, useMemo, useState } from "react";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
-import { Folder, Task } from "~/contants/types";
+import { Folder, Task } from "~/constants/types";
 import { format } from "date-fns";
-import { CalendarIcon, FolderIcon, RightArrow, Update } from "~/contants/icons";
+import { CalendarIcon, FolderIcon, RightArrow, Update } from "~/constants/icons";
 import {
   useFetcher,
   useNavigate,

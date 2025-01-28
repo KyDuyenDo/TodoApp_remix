@@ -1,9 +1,10 @@
+/* eslint-disable import/no-unresolved */
 import { Button } from "~/components/ui/button";
-import { Folder } from "~/contants/types";
+import { Folder } from "~/constants/types";
 import NewTaskDialog from "../NewTaskDialog/NewTaskDialog";
 import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import { SidebarContent } from "../Sidebar/SidebarContent";
-import { Menu } from "~/contants/icons";
+import { Menu } from "~/constants/icons";
 import { FolderOptions } from "../FolderOptions/FolderOptions";
 import { TranslationsMenu } from "../Translation/TranslationsMenu";
 import { ExcelImport } from "../ImportButton/ExcelImport";

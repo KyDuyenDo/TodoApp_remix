@@ -1,6 +1,6 @@
 import { Folder, Task } from "./types";
 
-export let mockFolders: Folder[] = [
+export const mockFolders: Folder[] = [
   { id: "all", name: "All", icon: "📋", isDefault: true },
   { id: "default", name: "Default", icon: "📁", isDefault: true },
   { id: "work", name: "Work", icon: "💼" },
@@ -10,7 +10,7 @@ export let mockFolders: Folder[] = [
   { id: "home", name: "Home", icon: "🏠" },
 ];
 
-export let mockTasks: Task[] = [
+export const mockTasks: Task[] = [
   {
     id: "1",
     title: "Call Max",

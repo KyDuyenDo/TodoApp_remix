@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { useTranslation } from "react-i18next";
 import { Button } from "~/components/ui/button";
 import {
@@ -8,8 +9,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { FilterIcon, UpDownIcon } from "~/contants/icons";
-import { SortOption, statusOptions, updateOptions } from "~/contants/types";
+import { FilterIcon, UpDownIcon } from "~/constants/icons";
+import { SortOption, statusOptions, updateOptions } from "~/constants/types";
 import { useUrlState } from "~/hooks/useUrlState";
 
 const statusMap = Object.fromEntries(statusOptions.map(opt => [opt.value, opt.label]));

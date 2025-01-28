@@ -16,7 +16,7 @@ import type {
 
 import "./tailwind.css";
 import { createFolder, getFolders } from "./models/folder";
-import { Folder } from "./contants/types";
+import { Folder } from "./constants/types";
 import React from "react";
 import { SidebarContent } from "./components/Sidebar/SidebarContent";
 import Header from "./components/Header/Header";
@@ -57,7 +57,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export const loader: LoaderFunction = async ({}) => {
+export const loader: LoaderFunction = async () => {
   const folders = await getFolders();
   return json({ folders });
 };

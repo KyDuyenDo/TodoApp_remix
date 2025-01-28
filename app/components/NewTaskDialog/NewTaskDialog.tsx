@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import {
@@ -14,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
-import { Folder, Task } from "~/contants/types";
+import { Folder, Task } from "~/constants/types";
 import { useFetcher, useNavigate } from "@remix-run/react";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";

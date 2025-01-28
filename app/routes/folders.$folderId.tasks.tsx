@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import {
   Outlet,
   ShouldRevalidateFunction,
@@ -8,7 +9,7 @@ import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 
 import TaskList from "~/components/TaskList/TaskList";
-import { Folder, Task } from "~/contants/types";
+import { Folder, Task } from "~/constants/types";
 import {
   getAllTasks,
   getAllTasksFiltered,
@@ -76,22 +77,22 @@ export default function FolderTasks() {
   const [tasks, setTasks] = useState<Task[] | null>(null);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
-  if (context !== "task-list") return null;
+
   useEffect(() => {
-    const fetchfolders = async () => {
+    const fetchFolders = async () => {
       setLoading(true);
       const { tasks, total } = await new Promise<{
         tasks: Task[];
         total: number;
       }>(
-        (resolve) => setTimeout(() => resolve(loaderData), 500) // Simulated delay
+        (resolve) => setTimeout(() => resolve(loaderData), 0) // Simulated delay
       );
       setTasks(tasks);
       setTotal(total);
       setLoading(false);
     };
 
-    fetchfolders();
+    fetchFolders();
   }, [loaderData]);
 
   useMemo(() => {
@@ -99,6 +100,8 @@ export default function FolderTasks() {
       window.localStorage.setItem("export_tasks", JSON.stringify(tasks));
     }
   }, [tasks]);
+
+  if (context !== "task-list") return null;
 
   return (
     <div className="flex">

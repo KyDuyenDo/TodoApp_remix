@@ -1,9 +1,10 @@
+/* eslint-disable import/no-unresolved */
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { Folder } from "~/contants/types";
+import { Folder } from "~/constants/types";
 import NewFolderDialog from "../NewFolderDialog/NewFolderDialog";
-import { Plus } from "~/contants/icons";
+import { Plus } from "~/constants/icons";
 import { useNavigate, useParams } from "@remix-run/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -45,6 +46,8 @@ export const SidebarContent = ({
         {folders.map((folder) => (
           <div
             key={folder.id}
+            role="button"
+            tabIndex={0}
             className={`flex items-center gap-3 p-2 rounded-lg ${
               params.folderId === folder.id ? "bg-white" : ""
             } hover:bg-white cursor-pointer`}
@@ -52,6 +55,13 @@ export const SidebarContent = ({
               isMobile && setSidebarOpen(false);
               if (params.folderId === folder.id) return;
               navigate(`/folders/${folder.id}/tasks`);
+            }}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                isMobile && setSidebarOpen(false);
+                if (params.folderId === folder.id) return;
+                navigate(`/folders/${folder.id}/tasks`);
+              }
             }}
           >
             <div className="text-xl">{folder.icon}</div>

@@ -1,5 +1,6 @@
+/* eslint-disable import/no-unresolved */
 import { Drawer, DrawerContent } from "~/components/ui/drawer";
-import { Folder, Task } from "~/contants/types";
+import { Folder, Task } from "~/constants/types";
 import TaskDetail from "../TaskDetailPanel/TaskDetail";
 import { useNavigate, useParams } from "@remix-run/react";
 
@@ -15,7 +16,7 @@ export default function MobileDrawer({
   task,
   openSheet,
 }: MobileDrawerProps) {
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
   const params = useParams();
   return (
     <div className="flex items-center gap-[13px]">
@@ -23,7 +24,7 @@ export default function MobileDrawer({
         <Drawer
           open={openSheet}
           onOpenChange={() => {
-            naviagte(`/folders/${params.folderId}/tasks`);
+            navigate(`/folders/${params.folderId}/tasks`);
           }}
         >
           <DrawerContent>

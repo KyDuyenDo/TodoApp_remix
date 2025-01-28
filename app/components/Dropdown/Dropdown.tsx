@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable import/no-unresolved */
 import { useTranslation } from "react-i18next";
 import { Button } from "~/components/ui/button";
 import {
@@ -6,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { MenuDropdownProps } from "~/contants/types";
+import { MenuDropdownProps } from "~/constants/types";
 
 export const Dropdown: React.FC<MenuDropdownProps> = ({
   dropdownItems,

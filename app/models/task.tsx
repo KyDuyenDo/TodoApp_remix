@@ -1,5 +1,6 @@
-import { mockTasks } from "~/contants/mock";
-import { Task } from "~/contants/types";
+/* eslint-disable import/no-unresolved */
+import { mockTasks } from "~/constants/mock";
+import { Task } from "~/constants/types";
 
 export const getTaskById = async (taskId: string) => {
   const task: Task | undefined = mockTasks.find((task) => task.id === taskId);
@@ -18,7 +19,7 @@ export const getAllTasksFiltered = async (search?: string) => {
   return { tasks, total };
 };
 
-export const updateTask = async (task: any) => {
+export const updateTask = async (task: Task) => {
   const index = mockTasks.findIndex((t) => t.id === task.id);
   if (index !== -1) {
     mockTasks[index] = { ...mockTasks[index], ...task };
@@ -50,7 +51,7 @@ export const filterTasksByStatus = async (status: string) => {
   return tasks;
 };
 
-export const filterTasksByLastestUpdate = async () => {
+export const filterTasksByLatestUpdate = async () => {
   const tasks: Task[] = mockTasks.sort(
     (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
   );

@@ -1,6 +1,7 @@
+/* eslint-disable import/no-unresolved */
 import { useNavigate, useParams } from "@remix-run/react";
 import React, { useEffect, useRef, useState } from "react";
-import { createFolderMenuProps, Folder } from "~/contants/types";
+import { createFolderMenuProps, Folder } from "~/constants/types";
 import { Input } from "../ui/input";
 import { Dropdown } from "../Dropdown/Dropdown";
 import { AlertDialogScaffold } from "../AlertDialog/AlertDialogScaffold";
@@ -8,7 +9,7 @@ import { useFetcher } from "@remix-run/react";
 
 export const FolderOptions = ({ folders }: { folders: Folder[] }) => {
   const [selection, setSelection] = React.useState({key:"", value:""});
-  const [foldeProps, setFolderProps] = React.useState<Folder>({
+  const [folderProps, setFolderProps] = React.useState<Folder>({
     id: "",
     name: "",
     icon: "",
@@ -35,7 +36,7 @@ export const FolderOptions = ({ folders }: { folders: Folder[] }) => {
     setIsRenameFolderOpen(false);
     if (params.folderId) {
       fetcher.submit(
-        { ...foldeProps, name: newFolderName },
+        { ...folderProps, name: newFolderName },
         { method: "put", action: `/folders` }
       );
     }
@@ -50,14 +51,14 @@ export const FolderOptions = ({ folders }: { folders: Folder[] }) => {
       } else if (selection.value === "DELETE") {
         navigate("/folders/all/tasks");
       } else if (selection.value === "RENAME") {
-        setFolderProps({ ...foldeProps, name: newFolderName });
+        setFolderProps({ ...folderProps, name: newFolderName });
       }
       setSelection({key:"", value:""});
     }
   }, [fetcher.data, navigate]);
 
   useEffect(() => {
-    if (foldeProps.id !== params.folderId) {
+    if (folderProps.id !== params.folderId) {
       const folder = folders.find((f) => f.id === params.folderId);
       if (folder) {
         setFolderProps(folder);
@@ -96,7 +97,7 @@ export const FolderOptions = ({ folders }: { folders: Folder[] }) => {
           warning="Are you absolutely sure?"
           description="This action cannot be undone. This will permanently delete your folder"
           onClick={() => handleDelete()}
-          handleCanle={() => setSelection({key:"", value:""})}
+          handleCancel={() => setSelection({key:"", value:""})}
         />
       )}
       {isDeleteFailed && (
@@ -104,7 +105,7 @@ export const FolderOptions = ({ folders }: { folders: Folder[] }) => {
           isOpen={isDeleteFailed}
           setIsOpen={setIsDeleteFailed}
           warning="Delete failed"
-          handleCanle={() => setSelection({key:"", value:""})}
+          handleCancel={() => setSelection({key:"", value:""})}
           description="The folder you want to delete is not empty or it is default"
         />
       )}
@@ -125,7 +126,7 @@ export const FolderOptions = ({ folders }: { folders: Folder[] }) => {
         />
       ) : (
         <Dropdown
-          {...createFolderMenuProps(foldeProps.name)}
+          {...createFolderMenuProps(folderProps.name)}
           setSelection={(key: string, value: string) => setSelection({ key, value })}
         />
       )}

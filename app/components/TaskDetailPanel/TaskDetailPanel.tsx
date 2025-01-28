@@ -1,5 +1,6 @@
+/* eslint-disable import/no-unresolved */
 import React from "react";
-import { TaskDetailPanelProps } from "~/contants/types";
+import { TaskDetailPanelProps } from "~/constants/types";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import TaskDetail from "./TaskDetail";
 import { useNavigate, useParams, useSearchParams } from "@remix-run/react";
@@ -10,7 +11,7 @@ const TaskDetailPanel: React.FC<TaskDetailPanelProps> = ({
   task,
   openSheet,
 }) => {
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
   const params = useParams();
   const [searchParams] = useSearchParams();
   const { t } = useTranslation("main");
@@ -18,7 +19,7 @@ const TaskDetailPanel: React.FC<TaskDetailPanelProps> = ({
     <Sheet
       open={openSheet}
       onOpenChange={() => {
-        naviagte(`/folders/${params.folderId}/tasks?${searchParams.toString()}`);
+        navigate(`/folders/${params.folderId}/tasks?${searchParams.toString()}`);
       }}
     >
       <SheetContent>

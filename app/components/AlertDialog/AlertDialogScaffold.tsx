@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,14 +16,14 @@ export const AlertDialogScaffold = ({
   onClick,
   isOpen,
   setIsOpen,
-  handleCanle,
+  handleCancel,
 }: {
   warning: string;
   description: string;
   onClick?: () => void;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  handleCanle?: () => void;
+  handleCancel?: () => void;
 }) => {
   return (
     <AlertDialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
@@ -35,7 +36,7 @@ export const AlertDialogScaffold = ({
           <AlertDialogCancel
             onClick={() => {
               setIsOpen(false);
-              handleCanle ?? handleCanle;
+              if(handleCancel) handleCancel();
             }}
           >
             Cancel

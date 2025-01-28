@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { useState, useEffect } from "react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -7,7 +8,7 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import { useFetcher, useNavigate } from "@remix-run/react";
-import { Folder } from "~/contants/types";
+import { Folder } from "~/constants/types";
 
 const FOLDER_EMOJIS = [
   "📁",

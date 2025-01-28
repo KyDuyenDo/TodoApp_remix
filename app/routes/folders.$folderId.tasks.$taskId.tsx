@@ -1,8 +1,9 @@
+/* eslint-disable import/no-unresolved */
 import { useMatches, useOutletContext, useParams } from "@remix-run/react";
 
 import TaskDetailPanel from "~/components/TaskDetailPanel/TaskDetailPanel";
 import MobileDrawer from "~/components/MobileDrawerProps/MobileDrawerProps";
-import { Folder, Task } from "~/contants/types";
+import { Folder, Task } from "~/constants/types";
 import React, { useEffect } from "react";
 
 export default function TaskDetail() {
@@ -17,7 +18,7 @@ export default function TaskDetail() {
   const task = parentData?.tasks?.find((t: Task) => t.id === params.taskId);
 
   const [openSheet, setOpenSheet] = React.useState(false);
-  const { isMobile, folders, context } = useOutletContext<{
+  const { isMobile, folders } = useOutletContext<{
     isMobile: boolean;
     context: string;
     folders: Folder[];

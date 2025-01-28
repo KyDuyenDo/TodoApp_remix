@@ -1,9 +1,10 @@
+/* eslint-disable import/no-unresolved */
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import * as XLSX from "xlsx";
 import { v4 as uuidv4 } from "uuid";
 import { useFetcher, useParams } from "@remix-run/react";
-import { Task } from "~/contants/types";
+import { Task } from "~/constants/types";
 import { useTranslation } from "react-i18next";
 
 export function ExcelImport() {
@@ -11,7 +12,7 @@ export function ExcelImport() {
   const params = useParams();
   const fetcher = useFetcher();
   const [fileInputKey, setFileInputKey] = useState(0);
-  const {t} = useTranslation("main");
+  const { t } = useTranslation("main");
 
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -36,7 +37,7 @@ export function ExcelImport() {
     }
   };
 
-  const readExcelFile = (file: File): Promise<any[][]> => {
+  const readExcelFile = (file: File): Promise<string[][]> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -46,7 +47,7 @@ export function ExcelImport() {
           const sheetName = workbook.SheetNames[0];
           const worksheet = workbook.Sheets[sheetName];
           const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-          resolve(json as any[][]);
+          resolve(json as string[][]);
         } catch (error) {
           reject(error);
         }
@@ -56,7 +57,7 @@ export function ExcelImport() {
     });
   };
 
-  const parseExcelData = (data: any[][]): Task[] => {
+  const parseExcelData = (data: string[][]): Task[] => {
     const [headers, ...rows] = data;
     return rows.map((row) => {
       const task: Task = {
@@ -64,7 +65,15 @@ export function ExcelImport() {
         title: row[headers.indexOf("title")] || "New task",
         folderId:
           params.folderId === "all" ? "default" : params.folderId || "default",
-        status: row[headers.indexOf("status")] || "todo",
+        status: ["todo", "inprogress", "pending", "done"].includes(
+          row[headers.indexOf("status")]
+        )
+          ? (row[headers.indexOf("status")] as
+              | "todo"
+              | "inprogress"
+              | "pending"
+              | "done")
+          : "todo",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         time: new Date(row[headers.indexOf("time")]).toISOString(),

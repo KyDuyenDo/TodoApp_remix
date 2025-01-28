@@ -1,5 +1,6 @@
-import { mockFolders, mockTasks } from "~/contants/mock";
-import { Folder } from "~/contants/types";
+/* eslint-disable import/no-unresolved */
+import { mockFolders, mockTasks } from "~/constants/mock";
+import { Folder } from "~/constants/types";
 
 export const getFolders = async () => {
   const taskCountMap = mockTasks.reduce(
@@ -19,7 +20,7 @@ export const getFolders = async () => {
   });
 };
 
-export const getFolderByFolderId = async (folderId: String) => {
+export const getFolderByFolderId = async (folderId: string) => {
   return mockFolders.find((folder) => folder.id === folderId);
 };
 

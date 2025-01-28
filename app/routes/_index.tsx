@@ -1,5 +1,5 @@
 import { LoaderFunction, redirect } from "@remix-run/node";
 
-export const loader: LoaderFunction = async ({}) => {
+export const loader: LoaderFunction = async () => {
   return redirect("/folders/all/tasks");
 };

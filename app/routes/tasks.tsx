@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { type ActionFunctionArgs, json } from "@remix-run/node";
 import {
   createTask,
@@ -6,7 +7,7 @@ import {
   createMultipleTasks,
 } from "~/models/task";
 import { v4 as uuidv4 } from "uuid";
-import { Task } from "~/contants/types";
+import { Task } from "~/constants/types";
 
 export async function action({ request }: ActionFunctionArgs) {
   const method = request.method.toUpperCase();

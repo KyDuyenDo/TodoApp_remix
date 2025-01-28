@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import React from "react";
 import { Input } from "../ui/input";
 import {
@@ -9,8 +10,8 @@ import {
 } from "../ui/select";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { Task, TaskDetailPanelProps } from "~/contants/types";
-import { statusOptions } from "~/contants/mock";
+import { Task, TaskDetailPanelProps } from "~/constants/types";
+import { statusOptions } from "~/constants/mock";
 import {
   useFetcher,
   useLocation,
@@ -25,7 +26,7 @@ const TaskDetail: React.FC<TaskDetailPanelProps> = ({ folders, task }) => {
   const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
-  const [updatetask, setUpdateTask] = React.useState<Task>({ ...task });
+  const [updateTask, setUpdateTask] = React.useState<Task>({ ...task });
   const [isChange, setIsChange] = React.useState(false);
   const [isDelete, setIsDelete] = React.useState(false);
   const { t } = useTranslation("main");
@@ -44,15 +45,15 @@ const TaskDetail: React.FC<TaskDetailPanelProps> = ({ folders, task }) => {
   }, [fetcher.state, fetcher.data]);
 
   React.useEffect(() => {
-    const hasChanged = JSON.stringify(updatetask) !== JSON.stringify(task);
+    const hasChanged = JSON.stringify(updateTask) !== JSON.stringify(task);
     setIsChange(hasChanged);
-  }, [updatetask]);
+  }, [updateTask]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData();
 
-    Object.entries(updatetask).forEach(([key, value]) => {
+    Object.entries(updateTask).forEach(([key, value]) => {
       formData.append(key, value);
     });
 
@@ -96,7 +97,7 @@ const TaskDetail: React.FC<TaskDetailPanelProps> = ({ folders, task }) => {
         <Input
           className="mb-4"
           name="title"
-          value={updatetask.title}
+          value={updateTask.title}
           onChange={handleInputChange}
         />
 
@@ -108,7 +109,7 @@ const TaskDetail: React.FC<TaskDetailPanelProps> = ({ folders, task }) => {
             <Input
               placeholder="Add description..."
               name="note"
-              value={updatetask.note}
+              value={updateTask.note}
               onChange={handleInputChange}
             />
           </div>
@@ -118,10 +119,10 @@ const TaskDetail: React.FC<TaskDetailPanelProps> = ({ folders, task }) => {
               {t("FOLDER")}
             </label>
             <Select
-              value={updatetask.folderId}
+              value={updateTask.folderId}
               name="folderId"
               onValueChange={(value) =>
-                setUpdateTask({ ...updatetask, folderId: value })
+                setUpdateTask({ ...updateTask, folderId: value })
               }
             >
               <SelectTrigger>
@@ -145,7 +146,7 @@ const TaskDetail: React.FC<TaskDetailPanelProps> = ({ folders, task }) => {
               {t("DUE_DATE")}
             </label>
             <Input
-              value={formatDateTimeLocal(updatetask.time)}
+              value={formatDateTimeLocal(updateTask.time)}
               type="datetime-local"
               name="time"
               onChange={handleInputChange}
@@ -157,11 +158,11 @@ const TaskDetail: React.FC<TaskDetailPanelProps> = ({ folders, task }) => {
               {t("STATUS")}
             </label>
             <Select
-              value={updatetask.status}
+              value={updateTask.status}
               name="status"
               onValueChange={(value) =>
                 setUpdateTask({
-                  ...updatetask,
+                  ...updateTask,
                   status: value as Task["status"],
                 })
               }
