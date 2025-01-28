@@ -21,10 +21,4 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
-  server: {
-    host: '192.168.68.154',
-    port: 3000,
-    strictPort: true,
-    open: true,
-  },
 });
